@@ -22,7 +22,7 @@ namespace DTOTest
         [Test]
         public void TestGetConfessions()
         {
-            var confessions = confessionRepository.GetConfessions();
+            var confessions = confessionRepository.Get();
             Assert.AreEqual(0, confessions.Count);
         }
     }
