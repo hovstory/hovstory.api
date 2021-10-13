@@ -15,13 +15,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTOLibrary", "DTOLibrary\DT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HOVStory", "HOVStory\HOVStory.csproj", "{5534DEDD-6BC3-4CEA-8974-1AF74A2D22AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTOTest", "DTOTest\DTOTest.csproj", "{6D9EF78D-D8AB-4B97-BA64-A096CF8826C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTOTest", "DTOTest\DTOTest.csproj", "{6D9EF78D-D8AB-4B97-BA64-A096CF8826C4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Unit Test", "4. Unit Test", "{F17359A7-F545-47B5-B71C-8A9F27C747F2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5. Configuration", "5. Configuration", "{280D45CC-0B57-4FB2-BE1B-E684D308CB19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HOVStoryConfiguration", "HOVStoryConfiguration\HOVStoryConfiguration.csproj", "{4F776D22-0751-4C17-A657-B54A2BC44B79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HOVStoryConfiguration", "HOVStoryConfiguration\HOVStoryConfiguration.csproj", "{4F776D22-0751-4C17-A657-B54A2BC44B79}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
