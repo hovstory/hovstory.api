@@ -5,7 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="..\HOVStoryConfiguration\appsettings.json" Link="appsettings.json" />
+  </ItemGroup>
+	
+  <ItemGroup>
     <PackageReference Include="MongoDB.Driver" Version="2.13.2" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <ProjectReference Include="..\HOVStoryConfiguration\HOVStoryConfiguration.csproj" />
   </ItemGroup>
 
 </Project>
