@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DTOLibrary
 {
-    public class Confessions
+    public class Confession
     {
         /// <summary>
         /// The Object ID matched with the one in MongoDB

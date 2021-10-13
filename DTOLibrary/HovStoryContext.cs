@@ -24,8 +24,8 @@ namespace DTOLibrary
         /// <summary>
         /// The Collection for Confessions
         /// </summary>
-        public IMongoCollection<Confessions> Confessions 
-            => _database.GetCollection<Confessions>(Configuration.ConfessionsTableName);
+        public IMongoCollection<Confession> Confessions 
+            => _database.GetCollection<Confession>(Configuration.ConfessionsTableName);
 
         /// <summary>
         /// The Collection for Users
