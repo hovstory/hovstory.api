@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DAOLibrary\DAOLibrary.csproj" />
     <ProjectReference Include="..\DTOLibrary\DTOLibrary.csproj" />
     <ProjectReference Include="..\HOVStoryConfiguration\HOVStoryConfiguration.csproj" />
   </ItemGroup>
