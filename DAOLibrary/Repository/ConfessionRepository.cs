@@ -10,6 +10,14 @@ namespace DAOLibrary.Repository
 {
     public class ConfessionRepository : IConfessionRepository
     {
-        public List<Confession> GetConfessions() => ConfessionDAO.Instance.Get();
+        public void Create(Confession confession) => ConfessionDAO.Instance.Create(confession);
+
+        public Confession Get(string id) => ConfessionDAO.Instance.Get(id);
+
+        public List<Confession> Get(string status, bool orderByDate = false) => ConfessionDAO.Instance.Get(status, orderByDate);
+
+        public List<Confession> Get(bool orderByDate = false) => ConfessionDAO.Instance.Get(orderByDate);
+
+        public void Update(string id, Confession updatedConfession) => ConfessionDAO.Instance.Update(id, updatedConfession);
     }
 }
