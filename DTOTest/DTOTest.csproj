@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DTOLibrary\DTOLibrary.csproj" />
+    <ProjectReference Include="..\HOVStoryConfiguration\HOVStoryConfiguration.csproj" />
   </ItemGroup>
 
 </Project>
