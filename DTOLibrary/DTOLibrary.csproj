@@ -5,7 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="..\HOVStoryConfiguration\appsettings.json" Link="appsettings.json" />
+    <Content Include="..\HOVStory\appsettings.json" Link="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 	
   <ItemGroup>
@@ -14,6 +16,12 @@
 	
   <ItemGroup>
     <ProjectReference Include="..\HOVStoryConfiguration\HOVStoryConfiguration.csproj" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <Compile Update="Confession.cs">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Compile>
   </ItemGroup>
 
 </Project>
