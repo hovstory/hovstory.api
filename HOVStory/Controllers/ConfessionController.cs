@@ -31,16 +31,11 @@ namespace HOVStory.Controllers
             {
                 List<Confession> confessions;
 
-                if (string.IsNullOrEmpty(status))
-                {
-                    confessions = confessionRepository.Get(orderByDate);
-                } else
-                {
-                    confessions = confessionRepository.Get(status, orderByDate);
-                }
+                confessions = confessionRepository.Get(orderByDate, status);
 
                 return StatusCode(200, confessions);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
             }
@@ -50,6 +45,7 @@ namespace HOVStory.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(500)]
         [ProducesResponseType(typeof(Confession), 200)]
+        [ProducesResponseType(204)]
         public IActionResult Get(string id)
         {
             try
@@ -59,8 +55,13 @@ namespace HOVStory.Controllers
                     throw new Exception("ID is empty!");
                 }
                 Confession confession = confessionRepository.Get(id);
+                if (confession == null)
+                {
+                    return StatusCode(204);
+                }
                 return StatusCode(200, confession);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
             }
@@ -68,14 +69,55 @@ namespace HOVStory.Controllers
 
         // POST api/confession
         [HttpPost]
-        public void Post([FromBody] string value)
+        [ProducesResponseType(500)]
+        [ProducesResponseType(typeof(Confession), 200)]
+        public IActionResult Post([FromBody] Confession confession)
         {
+            try
+            {
+                confessionRepository.Create(confession);
+                return StatusCode(200, confession);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
-        // PUT api/confession/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // PUT api/confession/approve/5
+        [HttpPut("approve/{id}")]
+        [ProducesResponseType(500)]
+        [ProducesResponseType(typeof(Confession), 200)]
+        public IActionResult Approve(string id)
         {
+            try
+            {
+                string admin = "PhongNT"; // TODO Code
+                Confession confession = confessionRepository.Approve(id, admin);
+                return StatusCode(200, confession);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        // PUT api/confession/reject/6
+        [HttpPut("reject/{id}")]
+        [ProducesResponseType(500)]
+        [ProducesResponseType(typeof(Confession), 200)]
+        public IActionResult Reject(string id, [FromBody] string comment)
+        {
+            try
+            {
+                string admin = "PhongNT"; // TODO Code
+                Confession confession = confessionRepository.Reject(id, admin, comment);
+                return StatusCode(200, confession);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         // DELETE api/confession/5
