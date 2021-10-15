@@ -49,6 +49,21 @@ namespace DAOLibrary.Repository
         /// <exception cref="Exception"></exception>
         public void Update(string id, Confession updatedConfession);
 
+        /// <summary>
+        /// Approve a confession
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="admin"></param>
+        /// <exception cref="Exception"></exception>
+        public void Approve(string id, string admin);
 
+        /// <summary>
+        /// Reject a confession
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="admin"></param>
+        /// <param name="comment"></param>
+        /// <exception cref="Exception"></exception>
+        public void Reject(string id, string admin, string comment);
     }
 }

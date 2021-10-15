@@ -10,6 +10,8 @@ namespace DAOLibrary.Repository
 {
     public class ConfessionRepository : IConfessionRepository
     {
+        public void Approve(string id, string admin) => ConfessionDAO.Instance.Approve(id, admin);
+
         public void Create(Confession confession) => ConfessionDAO.Instance.Create(confession);
 
         public Confession Get(string id) => ConfessionDAO.Instance.Get(id);
@@ -18,6 +20,9 @@ namespace DAOLibrary.Repository
 
         public List<Confession> Get(bool orderByDate = false) => ConfessionDAO.Instance.Get(orderByDate);
 
+        public void Reject(string id, string admin, string comment) => ConfessionDAO.Instance.Reject(id, admin, comment);
+
         public void Update(string id, Confession updatedConfession) => ConfessionDAO.Instance.Update(id, updatedConfession);
+
     }
 }
