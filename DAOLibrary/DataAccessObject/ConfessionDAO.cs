@@ -45,7 +45,7 @@ namespace DAOLibrary.DataAccessObject
         /// <param name="orderByDate">Set this to true if you want to get confessions and order them by Created Date Descending.</param>
         /// <exception cref="Exception"></exception>
         /// <returns>List of Confessions</returns>
-        internal List<Confession> Get(bool orderByDate = false)
+        internal List<Confession> Get(bool orderByDate = false, string status = "")
         {
             List<Confession> confessions = new List<Confession>();
 
@@ -58,6 +58,17 @@ namespace DAOLibrary.DataAccessObject
                 if (orderByDate)
                 {
                     confessions = confessions.OrderByDescending(cfs => cfs.CreatedAt)
+                                    .ToList();
+                }
+
+                if (!string.IsNullOrEmpty(status))
+                {
+                    if (!ConfessionStatus.CheckStatus.IsMatch(status))
+                    {
+                        throw new Exception("Invalid Status value!");
+                    }
+
+                    confessions = confessions.Where(cfs => cfs.Status.Equals(status))
                                     .ToList();
                 }
 
@@ -93,40 +104,6 @@ namespace DAOLibrary.DataAccessObject
         }
 
         /// <summary>
-        /// Get List of Confessions by Status
-        /// </summary>
-        /// <param name="status"></param>
-        /// <param name="orderByDate">Set this to true if you want to get confessions and order them by Created Date Descending.</param>
-        /// <see cref="ConfessionStatus"/>
-        /// <exception cref="Exception"></exception>
-        /// <returns>List of Confessions</returns>
-        internal List<Confession> Get(string status, bool orderByDate = false)
-        {
-            List<Confession> confessions = new List<Confession>();
-            try
-            {
-                if (!ConfessionStatus.CheckStatus.IsMatch(status))
-                {
-                    throw new Exception("Invalid Status value!");
-                }
-                var _context = new HovStoryContext();
-                confessions = _context.Confessions.Find(cfs => cfs.Status.Equals(status))
-                                .ToList();
-
-                if (orderByDate)
-                {
-                    confessions = confessions.OrderByDescending(cfs => cfs.CreatedAt)
-                                    .ToList();
-                }
-                
-            } catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-            return confessions;
-        }
-
-        /// <summary>
         /// Insert a new Confession
         /// </summary>
         /// <param name="confession"></param>
@@ -138,10 +115,8 @@ namespace DAOLibrary.DataAccessObject
                 var _context = new HovStoryContext();
 
                 confession.Status = ConfessionStatus.Pending;
-                DateTime now = TimeZoneInfo.ConvertTime(DateTime.Now,
-                    TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"));
-                confession.CreatedAt = now;
-                confession.ModifiedOn = now;
+                confession.CreatedAt = DateTime.Now;
+                confession.ModifiedOn = DateTime.Now;
 
                 _context.Confessions.InsertOne(confession);
             } catch (Exception ex)
@@ -181,8 +156,9 @@ namespace DAOLibrary.DataAccessObject
         /// </summary>
         /// <param name="id"></param>
         /// <param name="admin"></param>
+        /// <returns>The Approved Confession</returns>
         /// <exception cref="Exception"></exception>
-        internal void Approve(string id, string admin)
+        internal Confession Approve(string id, string admin)
         {
             try
             {
@@ -198,10 +174,10 @@ namespace DAOLibrary.DataAccessObject
                 confession.Status = ConfessionStatus.Approved;
                 confession.Comment = approveId.ToString();
                 confession.Admin = admin;
-                confession.ModifiedOn = TimeZoneInfo.ConvertTime(DateTime.Now, 
-                    TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"));
+                confession.ModifiedOn = DateTime.Now;
 
                 Update(id, confession);
+                return confession;
             } catch (Exception ex)
             {
                 throw new Exception(ex.Message);
@@ -214,8 +190,9 @@ namespace DAOLibrary.DataAccessObject
         /// <param name="id"></param>
         /// <param name="admin"></param>
         /// <param name="comment"></param>
+        /// <returns>The Rejected Confession</returns>
         /// <exception cref="Exception"></exception>
-        internal void Reject(string id, string admin, string comment)
+        internal Confession Reject(string id, string admin, string comment)
         {
             try
             {
@@ -230,10 +207,10 @@ namespace DAOLibrary.DataAccessObject
                 confession.Status = ConfessionStatus.Rejected;
                 confession.Comment = comment;
                 confession.Admin = admin;
-                confession.ModifiedOn = TimeZoneInfo.ConvertTime(DateTime.Now,
-                    TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"));
+                confession.ModifiedOn = DateTime.Now;
 
                 Update(id, confession);
+                return confession;
             } catch (Exception ex)
             {
                 throw new Exception(ex.Message);

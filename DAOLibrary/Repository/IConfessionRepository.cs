@@ -15,7 +15,7 @@ namespace DAOLibrary.Repository
         /// <param name="orderByDate"></param>
         /// <exception cref="Exception"></exception>
         /// <returns>List of Confession</returns>
-        public List<Confession> Get(bool orderByDate = false);
+        public List<Confession> Get(bool orderByDate = false, string status = "");
 
         /// <summary>
         /// Get a specific Confession based on its Object Id
@@ -24,15 +24,6 @@ namespace DAOLibrary.Repository
         /// <exception cref="Exception"></exception>
         /// <returns>The Confession</returns>
         public Confession Get(string id);
-
-        /// <summary>
-        /// Get List of Confessions by Status
-        /// </summary>
-        /// <param name="status"></param>
-        /// <param name="orderByDate"></param>
-        /// <exception cref="Exception"></exception>
-        /// <returns></returns>
-        public List<Confession> Get(string status, bool orderByDate = false);
 
         /// <summary>
         /// Insert a new Confession
@@ -54,8 +45,9 @@ namespace DAOLibrary.Repository
         /// </summary>
         /// <param name="id"></param>
         /// <param name="admin"></param>
+        /// <returns>The Approved Confession</returns>
         /// <exception cref="Exception"></exception>
-        public void Approve(string id, string admin);
+        public Confession Approve(string id, string admin);
 
         /// <summary>
         /// Reject a confession
@@ -63,7 +55,8 @@ namespace DAOLibrary.Repository
         /// <param name="id"></param>
         /// <param name="admin"></param>
         /// <param name="comment"></param>
+        /// <returns>The Rejected Confession</returns>
         /// <exception cref="Exception"></exception>
-        public void Reject(string id, string admin, string comment);
+        public Confession Reject(string id, string admin, string comment);
     }
 }
