@@ -136,6 +136,13 @@ namespace DAOLibrary.DataAccessObject
             try
             {
                 var _context = new HovStoryContext();
+
+                confession.Status = ConfessionStatus.Pending;
+                DateTime now = TimeZoneInfo.ConvertTime(DateTime.Now,
+                    TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"));
+                confession.CreatedAt = now;
+                confession.ModifiedOn = now;
+
                 _context.Confessions.InsertOne(confession);
             } catch (Exception ex)
             {
@@ -167,6 +174,96 @@ namespace DAOLibrary.DataAccessObject
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        /// <summary>
+        /// Approve a confession
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="admin"></param>
+        /// <exception cref="Exception"></exception>
+        internal void Approve(string id, string admin)
+        {
+            try
+            {
+                var _context = new HovStoryContext();
+                Confession confession = Get(id);
+
+                if (confession == null)
+                {
+                    throw new Exception($"Can't find confession with the id {id}");
+                }
+
+                int approveId = GenerateApproveId();
+                confession.Status = ConfessionStatus.Approved;
+                confession.Comment = approveId.ToString();
+                confession.Admin = admin;
+                confession.ModifiedOn = TimeZoneInfo.ConvertTime(DateTime.Now, 
+                    TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"));
+
+                Update(id, confession);
+            } catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Reject a confession
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="admin"></param>
+        /// <param name="comment"></param>
+        /// <exception cref="Exception"></exception>
+        internal void Reject(string id, string admin, string comment)
+        {
+            try
+            {
+                var _context = new HovStoryContext();
+                Confession confession = Get(id);
+
+                if (confession == null)
+                {
+                    throw new Exception($"Can't find confession with the id {id}");
+                }
+
+                confession.Status = ConfessionStatus.Rejected;
+                confession.Comment = comment;
+                confession.Admin = admin;
+                confession.ModifiedOn = TimeZoneInfo.ConvertTime(DateTime.Now,
+                    TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"));
+
+                Update(id, confession);
+            } catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        private int GenerateApproveId()
+        {
+            int approveId = 0;
+
+            try
+            {
+                var _context = new HovStoryContext();
+                IEnumerable<Confession> confessions = _context.Confessions.Find(cfs => cfs.Status.Equals(ConfessionStatus.Approved))
+                                                .ToList().OrderByDescending(cfs => cfs.Comment);
+
+                // Get the current maximum id
+                if (!confessions.Any())
+                {
+                    approveId = 1;
+                } else
+                {
+                    string idStr = confessions.First().Comment;
+                    approveId = int.Parse(idStr);
+                }
+            } catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return approveId;
         }
     }
 }
