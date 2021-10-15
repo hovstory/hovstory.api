@@ -36,16 +36,7 @@ namespace DTOLibrary
         /// Status of the Confession
         /// <seealso cref="ConfessionStatus"/>
         /// </summary>
-        public string Status { 
-            get => Status; 
-            set
-            {
-                if (!ConfessionStatus.CheckStatus.IsMatch(value)) {
-                    throw new Exception("Confession's Status is invalid!");
-                }
-                Status = value;
-            }
-        }
+        public string Status { get; set; }
 
         /// <summary>
         /// Admin name that approved or rejected the confession
