@@ -119,11 +119,5 @@ namespace HOVStory.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-
-        // DELETE api/confession/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }
