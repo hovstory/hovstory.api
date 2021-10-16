@@ -53,6 +53,12 @@ namespace DTOTest
         {
             Assert.AreEqual("P", Configuration.ConfessionPending);
         }
+        
+        [Test]
+        public void TestAudience()
+        {
+            Assert.AreEqual("https://localhost:5001/", Configuration.ValidAudience);
+        }
 
     }
 }

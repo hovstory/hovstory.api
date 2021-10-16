@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DAOLibrary.Repository;
 using DTOLibrary;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -88,6 +89,7 @@ namespace HOVStory.Controllers
         [HttpPut("approve/{id}")]
         [ProducesResponseType(500)]
         [ProducesResponseType(typeof(Confession), 200)]
+        [Authorize]
         public IActionResult Approve(string id)
         {
             try
@@ -106,6 +108,7 @@ namespace HOVStory.Controllers
         [HttpPut("reject/{id}")]
         [ProducesResponseType(500)]
         [ProducesResponseType(typeof(Confession), 200)]
+        [Authorize]
         public IActionResult Reject(string id, [FromBody] string comment)
         {
             try

@@ -18,11 +18,6 @@ namespace DTOLibrary
         public string Id { get; set; }
 
         /// <summary>
-        /// Admin Identity
-        /// </summary>
-        public string UserId { get; set; }
-
-        /// <summary>
         /// Email of the admin
         /// </summary>
         public string Email { get; set; }

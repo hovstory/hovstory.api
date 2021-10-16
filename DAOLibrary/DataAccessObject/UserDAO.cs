@@ -76,14 +76,53 @@ namespace DAOLibrary.DataAccessObject
             try
             {
                 var _context = new HovStoryContext();
-                user = _context.Users.Find(acc => acc.Email.Equals(email.ToLower()) && acc.Password.Equals(password))
+                user = _context.Users.Find(acc => acc.Email.Equals(email.ToLower()))
                         .SingleOrDefault();
+
+                if (user != null)
+                {
+                    bool verfied = BCrypt.Net.BCrypt.Verify(password, user.Password);
+                    if (!verfied)
+                    {
+                        user = null;
+                    }
+                }
             } catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
 
             return user;
+        }
+
+        /// <summary>
+        /// Create a new user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <exception cref="Exception"></exception>
+        /// <returns>The created User</returns>
+        internal User SignUp(User user)
+        {
+            try
+            {
+                var _context = new HovStoryContext();
+                User _user = _context.Users.Find(acc => acc.Email.Equals(user.Email.ToLower()))
+                                .SingleOrDefault();
+
+                if (_user == null)
+                {
+                    user.CreatedAt = DateTime.Now;
+                    _context.Users.InsertOne(user);
+                    return user;
+                } else
+                {
+                    throw new Exception("Email is existed! Please try again or login with the email!");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

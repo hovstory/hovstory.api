@@ -25,5 +25,13 @@ namespace DAOLibrary.Repository
         /// <exception cref="Exception"></exception>
         /// <returns>The existed User or null</returns>
         public User Login(string email, string password);
+
+        /// <summary>
+        /// Create a new user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <exception cref="Exception"></exception>
+        /// <returns>The created User</returns>
+        public User SignUp(User user);
     }
 }

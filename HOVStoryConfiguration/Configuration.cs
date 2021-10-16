@@ -61,6 +61,23 @@ namespace HOVStoryConfiguration
         public static string ConfessionPending => GetConfiguration().GetSection("ConfessionStatus")["Pending"];
         #endregion
 
+        #region JWT
+        /// <summary>
+        /// JWT Valid Audience
+        /// </summary>
+        public static string ValidAudience => GetConfiguration().GetSection("JWT")["ValidAudience"];
+
+        /// <summary>
+        /// JWT Valid Issuer
+        /// </summary>
+        public static string ValidIssuer => GetConfiguration().GetSection("JWT")["ValidIssuer"];
+
+        /// <summary>
+        /// JWT Secret
+        /// </summary>
+        public static string Secret => GetConfiguration().GetSection("JWT")["Secret"];
+        #endregion
+
         #endregion
     }
 }
