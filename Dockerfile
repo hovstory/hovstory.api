@@ -34,4 +34,5 @@ RUN dotnet publish -c Release -o /app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-ENTRYPOINT [ "dotnet", "HOVStory.dll"]
+# ENTRYPOINT [ "dotnet", "HOVStory.dll"]
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet HOVStory.dll
