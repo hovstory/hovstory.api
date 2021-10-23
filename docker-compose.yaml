@@ -1,0 +1,17 @@
+version: '3.3'
+services:
+  hovstory:
+    container_name: api
+    build:
+      # context: ./ntranphongseBlog
+      dockerfile: Dockerfile
+    ports: 
+    - "8080:80"
+    - "8081:443"
+    environment: 
+      ASPNETCORE_URLS: "https://+;http://+"
+      ASPNETCORE_HTTPS_PORT: "5001"
+      ASPNETCORE_ENVIRONMENT: "Development"
+    volumes: 
+      - ${APPDATA}\microsoft\UserSecrets\:/root/.microsoft/usersecrets
+      - ${USERPROFILE}\.aspnet\https:/root/.aspnet/https/
