@@ -27,5 +27,11 @@ namespace DTOLibrary
         /// </summary>
         public IMongoCollection<User> Users
             => _database.GetCollection<User>(Configuration.UsersTableName);
+
+        /// <summary>
+        /// The Collection for Logs
+        /// </summary>
+        public IMongoCollection<Log> Logs
+            => _database.GetCollection<Log>(Configuration.LogsTableName);
     }
 }

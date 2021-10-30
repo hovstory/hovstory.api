@@ -38,6 +38,11 @@ namespace HOVStoryConfiguration
         /// Users Table name in the Database
         /// </summary>
         public static string UsersTableName => GetConfiguration().GetSection("HOVStoryDB")["UsersTable"];
+        
+        /// <summary>
+        /// Logs Table name in the Database
+        /// </summary>
+        public static string LogsTableName => GetConfiguration().GetSection("HOVStoryDB")["LogsTable"];
         #endregion
         #region Confession Status
         /// <summary>
