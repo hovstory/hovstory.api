@@ -15,7 +15,7 @@ namespace DAOLibrary.Repository
         /// <param name="orderByDate"></param>
         /// <exception cref="Exception"></exception>
         /// <returns>List of Confession</returns>
-        public List<Confession> Get(bool orderByDate = false, string status = "");
+        public List<Confession> Get(bool orderByDate = false, string status = "", string[] confessionIds = null);
 
         /// <summary>
         /// Get a specific Confession based on its Object Id
