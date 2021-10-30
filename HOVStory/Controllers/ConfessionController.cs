@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DAOLibrary.Repository;
+﻿using DAOLibrary.Repository;
 using DTOLibrary;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -32,8 +30,10 @@ namespace HOVStory.Controllers
             try
             {
                 List<Confession> confessions;
-                if (status != "A") {
-                    if (!User.Identity.IsAuthenticated) {
+                if (status != "A")
+                {
+                    if (!User.Identity.IsAuthenticated)
+                    {
                         return StatusCode(401);
                     }
                 }
@@ -83,7 +83,8 @@ namespace HOVStory.Controllers
             List<Confession> confessions = new List<Confession>();
             try
             {
-                if (confessionIds.Length > 0) {
+                if (confessionIds.Length > 0)
+                {
                     confessions = confessionRepository.Get(orderByDate: true, confessionIds: confessionIds);
                 }
                 return StatusCode(200, confessions);

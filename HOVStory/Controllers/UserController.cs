@@ -7,7 +7,6 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,7 +50,8 @@ namespace HOVStory.Controllers
                 };
 
                 return StatusCode(200, user);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
             }
@@ -99,7 +99,8 @@ namespace HOVStory.Controllers
                 {
                     token = new JwtSecurityTokenHandler().WriteToken(token)
                 });
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 return Unauthorized(ex.Message);
             }
@@ -121,7 +122,8 @@ namespace HOVStory.Controllers
 
                 user.Password = "";
                 return StatusCode(200, user);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
             }

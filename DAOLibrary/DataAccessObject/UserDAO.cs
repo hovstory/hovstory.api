@@ -1,10 +1,7 @@
 ﻿using DTOLibrary;
 using MongoDB.Driver;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAOLibrary.DataAccessObject
 {
@@ -54,7 +51,8 @@ namespace DAOLibrary.DataAccessObject
                 var _context = new HovStoryContext();
                 user = _context.Users.Find(acc => acc.Email.Equals(email.ToLower()))
                         .SingleOrDefault();
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -87,7 +85,8 @@ namespace DAOLibrary.DataAccessObject
                         user = null;
                     }
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -114,7 +113,8 @@ namespace DAOLibrary.DataAccessObject
                     user.CreatedAt = DateTime.Now;
                     _context.Users.InsertOne(user);
                     return user;
-                } else
+                }
+                else
                 {
                     throw new Exception("Email is existed! Please try again or login with the email!");
                 }

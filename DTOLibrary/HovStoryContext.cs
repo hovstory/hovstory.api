@@ -1,10 +1,5 @@
 ﻿using HOVStoryConfiguration;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DTOLibrary
 {
@@ -24,7 +19,7 @@ namespace DTOLibrary
         /// <summary>
         /// The Collection for Confessions
         /// </summary>
-        public IMongoCollection<Confession> Confessions 
+        public IMongoCollection<Confession> Confessions
             => _database.GetCollection<Confession>(Configuration.ConfessionsTableName);
 
         /// <summary>

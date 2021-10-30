@@ -1,10 +1,5 @@
 ﻿using HOVStoryConfiguration;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DTOTest
 {
@@ -53,7 +48,7 @@ namespace DTOTest
         {
             Assert.AreEqual("P", Configuration.ConfessionPending);
         }
-        
+
         [Test]
         public void TestAudience()
         {
