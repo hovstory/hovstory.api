@@ -38,22 +38,31 @@ namespace DAOLibrary.DataAccessObject
                 }
             }
         }
-        
+
         /// <summary>
         /// Get All of Confessions in the Collection
         /// </summary>
         /// <param name="orderByDate">Set this to true if you want to get confessions and order them by Created Date Descending.</param>
         /// <exception cref="Exception"></exception>
         /// <returns>List of Confessions</returns>
-        internal List<Confession> Get(bool orderByDate = false, string status = "")
+        internal List<Confession> Get(bool orderByDate = false, string status = "", string[] confessionIds = null)
         {
             List<Confession> confessions = new List<Confession>();
 
             try
             {
                 var _context = new HovStoryContext();
-                confessions = _context.Confessions.Find(_ => true)
-                                .ToList();
+                if (confessionIds != null)
+                {
+                    confessions = _context.Confessions.Find(conf => confessionIds.Contains(conf.Id))
+                                    .ToList();
+                }
+                else
+                {
+
+                    confessions = _context.Confessions.Find(_ => true)
+                                    .ToList();
+                }
 
                 if (orderByDate)
                 {
@@ -72,7 +81,8 @@ namespace DAOLibrary.DataAccessObject
                                     .ToList();
                 }
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -95,7 +105,8 @@ namespace DAOLibrary.DataAccessObject
                 var _context = new HovStoryContext();
                 confession = _context.Confessions.Find(cfs => cfs.Id.Equals(id))
                                 .SingleOrDefault();
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -119,7 +130,8 @@ namespace DAOLibrary.DataAccessObject
                 confession.ModifiedOn = DateTime.Now;
 
                 _context.Confessions.InsertOne(confession);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -136,7 +148,7 @@ namespace DAOLibrary.DataAccessObject
             try
             {
                 var _context = new HovStoryContext();
-                
+
                 // Check existence of Confession Id
                 Confession confession = Get(id);
                 if (confession == null)
@@ -145,7 +157,8 @@ namespace DAOLibrary.DataAccessObject
                 }
 
                 _context.Confessions.ReplaceOne(cfs => cfs.Id.Equals(id), updatedConfession);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -178,7 +191,8 @@ namespace DAOLibrary.DataAccessObject
 
                 Update(id, confession);
                 return confession;
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -211,7 +225,8 @@ namespace DAOLibrary.DataAccessObject
 
                 Update(id, confession);
                 return confession;
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -230,12 +245,14 @@ namespace DAOLibrary.DataAccessObject
                 if (!confessions.Any())
                 {
                     approveId = 1;
-                } else
+                }
+                else
                 {
                     string idStr = confessions.First().Comment;
                     approveId = int.Parse(idStr);
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
