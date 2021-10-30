@@ -29,6 +29,7 @@ namespace HOVStory.Controllers
 
         // GET api/user/?email=abcxyz
         [HttpGet]
+        [Authorize]
         [ProducesResponseType(500)]
         [ProducesResponseType(204)]
         [ProducesResponseType(typeof(DTOLibrary.User), 200)]
