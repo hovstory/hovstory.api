@@ -25,13 +25,18 @@ namespace HOVStory.Controllers
         // GET: api/confession
         [HttpGet]
         [ProducesResponseType(500)]
+        [ProducesResponseType(401)]
         [ProducesResponseType(typeof(List<Confession>), 200)]
         public IActionResult Get([FromQuery] bool orderByDate = false, [FromQuery] string status = "")
         {
             try
             {
                 List<Confession> confessions;
-
+                if (status != "A") {
+                    if (!User.Identity.IsAuthenticated) {
+                        return StatusCode(401);
+                    }
+                }
                 confessions = confessionRepository.Get(orderByDate, status);
 
                 return StatusCode(200, confessions);
@@ -61,6 +66,27 @@ namespace HOVStory.Controllers
                     return StatusCode(204);
                 }
                 return StatusCode(200, confession);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        // GET api/confession with Body: array of Confession id
+        [HttpPost("my-confess")]
+        [ProducesResponseType(500)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(typeof(List<Confession>), 200)]
+        public IActionResult Get([FromBody] string[] confessionIds)
+        {
+            List<Confession> confessions = new List<Confession>();
+            try
+            {
+                if (confessionIds.Length > 0) {
+                    confessions = confessionRepository.Get(orderByDate: true, confessionIds: confessionIds);
+                }
+                return StatusCode(200, confessions);
             }
             catch (Exception ex)
             {
