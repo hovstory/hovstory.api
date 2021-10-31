@@ -11,6 +11,7 @@ namespace HOVStory.Utils
     {
         public static void Log(string type, string content, System.Security.Claims.ClaimsPrincipal user)
         {
+            string operatorName = getOperatorName(user);
             try
             {
                 ILogRepository logRepository = new LogRepository();
@@ -18,7 +19,7 @@ namespace HOVStory.Utils
                 {
                     Type = type,
                     Content = content,
-                    Operator = getOperatorName(user)
+                    Operator = operatorName
                 });
             }
             catch (Exception ex)
