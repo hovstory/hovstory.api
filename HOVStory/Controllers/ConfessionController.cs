@@ -1,5 +1,6 @@
 ﻿using DAOLibrary.Repository;
 using DTOLibrary;
+using HOVStory.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -34,6 +35,7 @@ namespace HOVStory.Controllers
                 {
                     if (!User.Identity.IsAuthenticated)
                     {
+                        Logger.Log("Authentication", $"Error at ConfessionController: User is not authenticated and try to get confessions with status {status}", User);
                         return StatusCode(401);
                     }
                 }
@@ -43,6 +45,7 @@ namespace HOVStory.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log("Error", ex.Message, User);
                 return StatusCode(500, ex.Message);
             }
         }
@@ -69,6 +72,7 @@ namespace HOVStory.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log("Error", ex.Message, User);
                 return StatusCode(500, ex.Message);
             }
         }
@@ -91,6 +95,7 @@ namespace HOVStory.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log("Error", ex.Message, User);
                 return StatusCode(500, ex.Message);
             }
         }
@@ -108,6 +113,7 @@ namespace HOVStory.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log("Error", ex.Message, User);
                 return StatusCode(500, ex.Message);
             }
         }
@@ -127,6 +133,7 @@ namespace HOVStory.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log("Error", ex.Message, User);
                 return StatusCode(500, ex.Message);
             }
         }
@@ -146,6 +153,7 @@ namespace HOVStory.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log("Error", ex.Message, User);
                 return StatusCode(500, ex.Message);
             }
         }

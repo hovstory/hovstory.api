@@ -1,4 +1,5 @@
 ﻿using DAOLibrary.Repository;
+using HOVStory.Utils;
 using HOVStoryConfiguration;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -52,7 +53,7 @@ namespace HOVStory.Controllers
                 return StatusCode(200, user);
             }
             catch (Exception ex)
-            {
+            {Logger.Log("Error", ex.Message, User);
                 return StatusCode(500, ex.Message);
             }
         }
@@ -102,6 +103,7 @@ namespace HOVStory.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log("Error", ex.Message, User);
                 return Unauthorized(ex.Message);
             }
         }
@@ -125,6 +127,7 @@ namespace HOVStory.Controllers
             }
             catch (Exception ex)
             {
+                Logger.Log("Error", ex.Message, User);
                 return StatusCode(500, ex.Message);
             }
         }
