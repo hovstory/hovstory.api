@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DTOLibrary;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,9 +32,18 @@ namespace DAOLibrary.DataAccessObject
             }
         }
 
-        internal void Log(string type, string content, string operatorName)
+        internal void Log(Log log)
         {
+            try
+            {
+                var _context = new HovStoryContext();
+                log.CreatedAt = DateTime.Now;
 
+                _context.Logs.InsertOne(log);
+            } catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }
