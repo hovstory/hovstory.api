@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="..\HOVStory\appsettings.json" Link="appsettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DAOLibrary\DAOLibrary.csproj" />
+    <ProjectReference Include="..\DTOLibrary\DTOLibrary.csproj" />
+  </ItemGroup>
+
+</Project>
