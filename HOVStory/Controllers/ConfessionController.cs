@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
+using System.Linq;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -118,16 +120,16 @@ namespace HOVStory.Controllers
             }
         }
 
-        // PUT api/confession/approve/5
-        [HttpPut("approve/{id}")]
+        // PUT api/confession/approve/?id=asdasd
+        [HttpPost("approve")]
         [ProducesResponseType(500)]
         [ProducesResponseType(typeof(Confession), 200)]
         [Authorize]
-        public IActionResult Approve(string id)
+        public IActionResult Approve([FromQuery] string id)
         {
             try
             {
-                string admin = "PhongNT"; // TODO Code
+                string admin = getOperatorName();
                 Confession confession = confessionRepository.Approve(id, admin);
                 return StatusCode(200, confession);
             }
@@ -138,17 +140,17 @@ namespace HOVStory.Controllers
             }
         }
 
-        // PUT api/confession/reject/6
-        [HttpPut("reject/{id}")]
+        // PUT api/confession/reject/?id=asdad
+        [HttpPost("reject")]
         [ProducesResponseType(500)]
         [ProducesResponseType(typeof(Confession), 200)]
         [Authorize]
-        public IActionResult Reject(string id, [FromBody] string comment)
+        public IActionResult Reject([FromBody] AdminConfess confess)
         {
             try
             {
-                string admin = "PhongNT"; // TODO Code
-                Confession confession = confessionRepository.Reject(id, admin, comment);
+                string admin = getOperatorName();
+                Confession confession = confessionRepository.Reject(confess.Id, admin, confess.Reason);
                 return StatusCode(200, confession);
             }
             catch (Exception ex)
@@ -157,5 +159,22 @@ namespace HOVStory.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+        private string getOperatorName()
+        {
+            string operatorName = string.Empty;
+            if (User.Identity.IsAuthenticated)
+            {
+                var claims = User.Claims;
+                operatorName = claims.FirstOrDefault(c => c.Type.Equals(ClaimTypes.Name)).Value;
+            }
+
+            return operatorName;
+        }
+    }
+
+    public class AdminConfess {
+        public string Id { get; set; } 
+        public string Reason { get; set; }    
     }
 }
