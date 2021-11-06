@@ -16,6 +16,7 @@
     <ProjectReference Include="..\DAOLibrary\DAOLibrary.csproj" />
     <ProjectReference Include="..\DTOLibrary\DTOLibrary.csproj" />
     <ProjectReference Include="..\HOVStoryConfiguration\HOVStoryConfiguration.csproj" />
+    <ProjectReference Include="..\Utils\HOVStoryUtils.csproj" />
   </ItemGroup>
 
 </Project>
