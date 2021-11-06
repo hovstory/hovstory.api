@@ -42,6 +42,11 @@ namespace HOVStory.Controllers
                     }
                 }
                 confessions = confessionRepository.Get(orderByDate, status);
+                foreach (var confession in confessions)
+                {
+                    confession.CreatedAt = Utils.Datetime.ConvertToVn(confession.CreatedAt);
+                    confession.ModifiedOn = Utils.Datetime.ConvertToVn(confession.ModifiedOn);
+                }
 
                 return StatusCode(200, confessions);
             }
@@ -70,6 +75,8 @@ namespace HOVStory.Controllers
                 {
                     return StatusCode(204);
                 }
+                confession.CreatedAt = Utils.Datetime.ConvertToVn(confession.CreatedAt);
+                confession.ModifiedOn = Utils.Datetime.ConvertToVn(confession.ModifiedOn);
                 return StatusCode(200, confession);
             }
             catch (Exception ex)
@@ -92,6 +99,11 @@ namespace HOVStory.Controllers
                 if (confessionIds.Length > 0)
                 {
                     confessions = confessionRepository.Get(orderByDate: true, confessionIds: confessionIds);
+                    foreach (var confession in confessions)
+                    {
+                        confession.CreatedAt = Utils.Datetime.ConvertToVn(confession.CreatedAt);
+                        confession.ModifiedOn = Utils.Datetime.ConvertToVn(confession.ModifiedOn);
+                    }
                 }
                 return StatusCode(200, confessions);
             }
@@ -131,6 +143,8 @@ namespace HOVStory.Controllers
             {
                 string admin = getOperatorName();
                 Confession confession = confessionRepository.Approve(id, admin);
+                confession.CreatedAt = Utils.Datetime.ConvertToVn(confession.CreatedAt);
+                confession.ModifiedOn = Utils.Datetime.ConvertToVn(confession.ModifiedOn);
                 return StatusCode(200, confession);
             }
             catch (Exception ex)
@@ -151,6 +165,8 @@ namespace HOVStory.Controllers
             {
                 string admin = getOperatorName();
                 Confession confession = confessionRepository.Reject(confess.Id, admin, confess.Reason);
+                confession.CreatedAt = Utils.Datetime.ConvertToVn(confession.CreatedAt);
+                confession.ModifiedOn = Utils.Datetime.ConvertToVn(confession.ModifiedOn);
                 return StatusCode(200, confession);
             }
             catch (Exception ex)
