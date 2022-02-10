@@ -12,8 +12,9 @@ namespace HOVStoryUtils
         {
             try
             {
-                TimeZoneInfo timeZone = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time");
-                DateTime vnTime = TimeZoneInfo.ConvertTimeFromUtc(utcTime, timeZone);
+                //TimeZoneInfo timeZone = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time");
+                //DateTime vnTime = TimeZoneInfo.ConvertTimeFromUtc(utcTime, timeZone);
+                DateTime vnTime = utcTime.AddHours(7);
                 return vnTime;
             } catch (Exception ex)
             {
