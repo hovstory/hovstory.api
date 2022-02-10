@@ -10,9 +10,13 @@ COPY DTOLibrary/*.csproj ./DTOLibrary/
 COPY HOVStoryConfiguration/*.csproj ./HOVStoryConfiguration/
 COPY DTOTest/*.csproj ./DTOTest/
 COPY HOVStory/*.csproj ./HOVStory/
+COPY Utils/*.csproj ./Utils/
 
 RUN dotnet restore
 COPY . .
+WORKDIR /src/Utils
+RUN dotnet build -c Release -o /app
+
 WORKDIR /src/DAOLibrary
 RUN dotnet build -c Release -o /app
 
