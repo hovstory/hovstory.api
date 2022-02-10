@@ -10,7 +10,7 @@ COPY DTOLibrary/*.csproj ./DTOLibrary/
 COPY HOVStoryConfiguration/*.csproj ./HOVStoryConfiguration/
 COPY DTOTest/*.csproj ./DTOTest/
 COPY HOVStory/*.csproj ./HOVStory/
-COPY Utils/*.csproj ./Utils
+COPY Utils/*.csproj ./Utils/
 
 RUN dotnet restore
 COPY . .
