@@ -181,11 +181,18 @@ namespace DAOLibrary.DataAccessObject
                     throw new Exception($"Can't find confession with the id {id}");
                 }
 
+                if (confession.Status == ConfessionStatus.Approved)
+                {
+                    throw new Exception($"Confession is already approved!! " +
+                        $"Confession Approved Id: {confession.ConfessionId}");
+                }
+
                 int approveId = GenerateApproveId();
                 confession.Status = ConfessionStatus.Approved;
                 confession.Comment = approveId.ToString();
                 confession.Admin = admin;
                 confession.ModifiedOn = DateTime.Now;
+                confession.ConfessionId = approveId;
 
                 Update(id, confession);
                 return confession;
@@ -216,6 +223,12 @@ namespace DAOLibrary.DataAccessObject
                     throw new Exception($"Can't find confession with the id {id}");
                 }
 
+                if (confession.Status == ConfessionStatus.Rejected)
+                {
+                    throw new Exception($"Confession is already rejected!! " +
+                        $"Confession Id: {confession.Id}");
+                }
+
                 confession.Status = ConfessionStatus.Rejected;
                 confession.Comment = comment;
                 confession.Admin = admin;
@@ -231,13 +244,14 @@ namespace DAOLibrary.DataAccessObject
         }
         private int GenerateApproveId()
         {
-            int approveId = 0;
+            int approveId = 1;
 
             try
             {
                 var _context = new HovStoryContext();
-                IEnumerable<Confession> confessions = _context.Confessions.Find(cfs => cfs.Status.Equals(ConfessionStatus.Approved))
-                                                .ToList().OrderByDescending(cfs => cfs.Comment);
+                IEnumerable<Confession> confessions = _context.Confessions.Find(
+                    cfs => cfs.Status.Equals(ConfessionStatus.Approved))
+                    .ToList().OrderByDescending(cfs => cfs.ConfessionId);
 
                 // Get the current maximum id
                 if (!confessions.Any())
@@ -246,8 +260,8 @@ namespace DAOLibrary.DataAccessObject
                 }
                 else
                 {
-                    string idStr = confessions.First().Comment;
-                    approveId = int.Parse(idStr);
+                    int id = confessions.First().ConfessionId;
+                    approveId = ++id;
                 }
             }
             catch (Exception ex)

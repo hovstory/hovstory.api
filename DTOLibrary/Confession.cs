@@ -48,5 +48,10 @@ namespace DTOLibrary
         /// The time that the confession was modified (approved or rejected) by the admin. It is the same as the CreatedAt when it is pending for approval
         /// </summary>
         public DateTime ModifiedOn { get; set; }
+
+        /// <summary>
+        /// Confession id if it is approved
+        /// </summary>
+        public int ConfessionId { get; set; }
     }
 }

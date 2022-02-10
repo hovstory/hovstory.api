@@ -143,8 +143,8 @@ namespace HOVStory.Controllers
             {
                 string admin = getOperatorName();
                 Confession confession = confessionRepository.Approve(id, admin);
-                confession.CreatedAt = Utils.Datetime.ConvertToVn(confession.CreatedAt);
-                confession.ModifiedOn = Utils.Datetime.ConvertToVn(confession.ModifiedOn);
+                confession.CreatedAt = Utils.Datetime.ConvertToVn(DateTime.SpecifyKind(confession.CreatedAt, DateTimeKind.Utc));
+                confession.ModifiedOn = Utils.Datetime.ConvertToVn(DateTime.SpecifyKind(confession.ModifiedOn, DateTimeKind.Utc));
                 return StatusCode(200, confession);
             }
             catch (Exception ex)
@@ -159,14 +159,14 @@ namespace HOVStory.Controllers
         [ProducesResponseType(500)]
         [ProducesResponseType(typeof(Confession), 200)]
         [Authorize]
-        public IActionResult Reject([FromBody] AdminConfess confess)
+        public IActionResult Reject([FromQuery] string id, [FromQuery] string reason)
         {
             try
             {
                 string admin = getOperatorName();
-                Confession confession = confessionRepository.Reject(confess.Id, admin, confess.Reason);
-                confession.CreatedAt = Utils.Datetime.ConvertToVn(confession.CreatedAt);
-                confession.ModifiedOn = Utils.Datetime.ConvertToVn(confession.ModifiedOn);
+                Confession confession = confessionRepository.Reject(id, admin, reason);
+                confession.CreatedAt = Utils.Datetime.ConvertToVn(DateTime.SpecifyKind(confession.CreatedAt, DateTimeKind.Utc));
+                confession.ModifiedOn = Utils.Datetime.ConvertToVn(DateTime.SpecifyKind(confession.ModifiedOn, DateTimeKind.Utc));
                 return StatusCode(200, confession);
             }
             catch (Exception ex)
