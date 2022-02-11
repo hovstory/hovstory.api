@@ -14,7 +14,8 @@ namespace HOVStoryUtils
             {
                 //TimeZoneInfo timeZone = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time");
                 //DateTime vnTime = TimeZoneInfo.ConvertTimeFromUtc(utcTime, timeZone);
-                DateTime vnTime = utcTime.AddHours(7);
+                //DateTime vnTime = utcTime.AddHours(7);
+                DateTime vnTime = utcTime;
                 return vnTime;
             } catch (Exception ex)
             {
