@@ -10,7 +10,7 @@ namespace HOVStoryConfiguration
         {
             var builder = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", true, true);
+            .AddJsonFile("appsettings.json", true, false);
 
             return builder.Build();
         }
